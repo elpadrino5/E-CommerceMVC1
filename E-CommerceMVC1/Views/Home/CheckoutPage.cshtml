@@ -1,0 +1,157 @@
+﻿@model E_CommerceMVC1.Models.Order_fe
+
+@{
+    ViewBag.Title = "CheckoutPage";
+}
+
+<h2>Checkout</h2>
+
+<div id="big_container">
+    <div id='wrap'>
+        <table class="table" id="address_table">
+            <tr>
+                <td>
+                    <h4>Address</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.FirstName)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.LastName)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.Street)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Street)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.City)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.City)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.State)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.State)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.Zip)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Zip)
+                </td>
+            </tr>
+        </table>
+        <table class="table" id="payment_table">
+            <tr>
+                <td>
+                    <h4>Payment</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.NameOnCard)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.NameOnCard)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.CardNumber)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CardNumber)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.Expiration)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Expiration)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(model => model.CVV)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CVV)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id='items_container'>
+        <table class="table" id="checkout_table">
+
+            @*Headers*@
+            <tr>
+                <td>
+                    <p><b>Your checkout cart</b></p>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <p>Items: @Html.DisplayFor(modelItem => Model.ItemQty)</p>
+                </td>
+            </tr>
+
+            @*List of Cart Items*@
+            @foreach (var one in Model.ListCartItems)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(cartItem => one.ProductName)
+                    </td>
+                    <td>
+                        <img src="@Html.DisplayFor(cartItem => one.ImgUrl)" width="150" height="125" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(cartItem => one.Price)
+                    </td>
+                </tr>
+            }
+
+            @*Last row with total*@
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => Model.Total)
+                </td>
+                <td>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Total)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" value="Confirm Purchase" class="btn btn-default">
+                        @Html.ActionLink("Confirm Purchase", "ConfirmationPage", new { id = item.CartItemId })
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

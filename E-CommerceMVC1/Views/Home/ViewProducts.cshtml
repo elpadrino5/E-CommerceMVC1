@@ -1,0 +1,59 @@
+﻿@model IEnumerable<E_CommerceMVC1.Models.Product_fe>
+
+@{
+    ViewBag.Title = "ViewProducts";
+}
+
+<h2>All Skateboards</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddProduct")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImgUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        <!--<p>@Html.DisplayFor(modelItem => item.ImgUrl)</p>-->
+        <img src="@Html.DisplayFor(modelItem => item.ImgUrl)" width="300" height="250" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId }) |
+        @Html.ActionLink("Edit", "EditProduct", new { id = item.ProductId }) |
+        @Html.ActionLink("Details", "DetailsProduct", new { id = item.ProductId }) |
+        @Html.ActionLink("Delete", "EraseProduct", new { id = item.ProductId })
+    </td>
+</tr>
+}
+
+</table>
