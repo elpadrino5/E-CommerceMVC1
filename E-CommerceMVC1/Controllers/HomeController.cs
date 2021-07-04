@@ -9,6 +9,7 @@ using static DataLibrary1.BusinessLogic.ProductProcessor;
 using static DataLibrary1.BusinessLogic.CartProcessor;
 using static DataLibrary1.BusinessLogic.AddressProcessor;
 using static DataLibrary1.BusinessLogic.PaymentProcessor;
+using static DataLibrary1.BusinessLogic.OrderProcessor;
 using DataLibrary1.Models;
 
 namespace E_CommerceMVC1.Controllers
@@ -395,20 +396,197 @@ namespace E_CommerceMVC1.Controllers
         {
             //store email to be pass as id
             string email = User.Identity.Name;
+            //load cart items
+            List<CartItem> ci = LoadCart(email);
+            //load all existing orders to extract ids and generate id for new order
+            List<Order> currentOrders = LoadOrder(email);
+            //list to store order ids
+            List<int> orderIds = new List<int>();
+
+            //start random number
+            var randnum = new Random();
+            //var to store generated random number
+            int genId = 0;
+            //contains number of rows affected
+            int submittedItems = 0;
+
+            //if more than one order must make sure generated id is unique
+            if (currentOrders.Count > 0)
+            {
+                //iterate through each order
+                foreach (var item in currentOrders)
+                {
+                    //add to list of existing order ids
+                    orderIds.Add(item.OrderId);
+                }
+
+                int min = 10000;
+                int max = 100000;
+                int orderIdsCnt = orderIds.Count;
+                //make sure max is at least twice as much as ids already taken
+                while (orderIdsCnt > (max / 2))
+                {
+                    max *= 2;
+                }
+
+                do //keep generating a random num until it doesn't match any current order ids
+                {
+                    //generate rand num from min to max
+                    genId = randnum.Next(min, max);
+                }
+                while (orderIds.Contains(genId));
+            }
+            else
+            {
+                genId = randnum.Next(10000, 100000);
+            }
 
             if (ModelState.IsValid)
             {
-                int submittedItems = LoadOrder(
-                order.ListCartItems,
+                submittedItems = CreateOrder(
+                genId,
+                email,
                 order.ItemQty,
                 order.Total
                 );
-
-                return RedirectToAction("ConfirmationPage");
+            }
+            else
+            {
+                return View();
             }
 
-            return View();
+            if (submittedItems != 1)
+            {
+                ViewBag.Message("Something went wrong when adding the order");
+                return View();
+            }
+
+            //make sure order list has at list one item
+            if (ci.Count > 0)
+            {
+                //reset number of submitted items
+                submittedItems = 0;
+
+                //iterate through each item in list
+                foreach (var row in ci)
+                {
+                    //add each item to order items table
+                    submittedItems += AddItemToOrder(
+                    row.ProductId,
+                    row.ProductName,
+                    row.Price,
+                    row.ImgUrl,
+                    genId
+                    );
+                }
+
+                if (submittedItems != ci.Count)
+                {
+                    ViewBag.Message("There was a problem adding order items to the database");
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.Message("There were no items to add to the order");
+                return View();
+            }
+            //if everything went well then redirect with order id parameter of the recently created order
+            return RedirectToAction("ConfirmationPage", new { id = genId });
         }
 
+        //public ActionResult ConfirmationPage()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult ConfirmationPage(int id)
+        {
+            ViewBag.Message = "Order";
+
+            //get recently created order
+            var orderData = LoadOrder(id);
+            //load all items for the order
+            var orderItemsData = LoadOrderItems(id);
+            //declare list of order items
+            List<OrderItem_fe> orderItems = new List<OrderItem_fe>();
+            //declare object for order model that will be displayed
+            var orderPost = new OrderPost_fe();
+
+            //iterate through each item and add to list
+            foreach (var row in orderItemsData)
+            {
+                orderItems.Add(new OrderItem_fe
+                {
+                    OrderItemId = row.OrderItemId,
+                    ProductName = row.ProductName,
+                    Price = row.Price,
+                    ImgUrl = row.ImgUrl,
+                    OrderId = row.OrderId
+                });
+            }
+
+            if (ModelState.IsValid)
+            {
+                orderPost.OrderId = orderData.OrderId;
+                orderPost.Email = orderData.Email;
+                orderPost.ListOrderItems = orderItems;
+                orderPost.ItemQty = orderData.ItemQty;
+                orderPost.Total = orderData.Total;
+            }
+
+            return View(orderPost);
+        }
+
+        public ActionResult MyOrderPage()
+        {
+            //store email to be pass as id
+            string email = User.Identity.Name;
+            //get all existing orders
+            var order_data = LoadOrder(email);
+
+            List<OrderPost_fe> orders = new List<OrderPost_fe>();
+
+            foreach (var row in order_data)
+            {
+                orders.Add(new OrderPost_fe
+                {
+                    OrderId = row.OrderId,
+                    Email = row.Email,
+                    ItemQty = row.ItemQty,
+                    Total = row.Total,
+                });
+            }
+
+            return View(orders);
+        }
+
+        public ActionResult AllOrdersPage()
+        {
+            //get all existing orders
+            var order_data = LoadOrder();
+
+            List<OrderPost_fe> orders = new List<OrderPost_fe>();
+
+            foreach (var row in order_data)
+            {
+                orders.Add(new OrderPost_fe
+                {
+                    OrderId = row.OrderId,
+                    Email = row.Email,
+                    ItemQty = row.ItemQty,
+                    Total = row.Total,
+                });
+            }
+
+            return View(orders);
+        }
+
+        public ActionResult AdminPage()
+        {
+            return View();
+        }
     }
 }

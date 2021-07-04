@@ -1,0 +1,30 @@
+﻿@model  E_CommerceMVC1.Models.OrderPost_fe
+
+@{
+    ViewBag.Title = "ConfirmationPage";
+}
+
+<h3>Your confirmation number is @Html.DisplayFor(model => model.OrderId)</h3>
+<br>
+<h4>Your Ordered items</h4>
+
+<table class="table">
+
+    @foreach (var one in Model.ListOrderItems)
+    {
+        <tr>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => one.ImgUrl)" width="150" height="125" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => one.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => one.Price)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Go To My Orders", "MyOrderPage", "Home")

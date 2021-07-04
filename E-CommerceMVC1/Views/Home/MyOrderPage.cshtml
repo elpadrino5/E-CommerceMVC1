@@ -1,0 +1,39 @@
+﻿@model IEnumerable<E_CommerceMVC1.Models.OrderPost_fe>
+
+@{
+    ViewBag.Title = "MyOrderPage";
+}
+
+<h2>MyOrders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    var orderId = @Html.ValueFor(modelItem => item.OrderId).ToString();
+    <tr>
+        <td>
+            @Html.ActionLink(orderId, "ConfirmationPage", new { id=item.OrderId })
+            @*@Html.DisplayFor(modelItem => item.OrderId)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemQty)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.Total)
+        </td>
+    </tr>
+}
+
+</table>

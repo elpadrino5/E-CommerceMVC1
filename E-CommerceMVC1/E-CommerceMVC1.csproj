@@ -182,6 +182,8 @@
     <Compile Include="Models\Cart_fe.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderItem_fe.cs" />
+    <Compile Include="Models\OrderPost_fe.cs" />
     <Compile Include="Models\Order_fe.cs" />
     <Compile Include="Models\Payment_fe.cs" />
     <Compile Include="Models\Product_fe.cs" />
@@ -256,6 +258,10 @@
     <Content Include="Views\Home\AddressForm.cshtml" />
     <Content Include="Views\Home\CheckoutPage.cshtml" />
     <Content Include="Views\Home\PaymentForm.cshtml" />
+    <Content Include="Views\Home\ConfirmationPage.cshtml" />
+    <Content Include="Views\Home\MyOrderPage.cshtml" />
+    <Content Include="Views\Home\AdminPage.cshtml" />
+    <Content Include="Views\Home\AllOrdersPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

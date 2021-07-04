@@ -23,10 +23,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "ViewProducts", "Home")</li>
                     <li>@Html.ActionLink("Post", "AddProduct", "Home")</li>
-                    @*<li>@Html.ActionLink("Shop", "ViewProducts", "Home")</li>*@
                     <li>@Html.ActionLink("My Cart", "ViewCart", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("My Orders", "MyOrderPage", "Home")</li>
+                    <li>@Html.ActionLink("Admin", "AdminPage", "Home")</li>
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Shop", "ViewProducts", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

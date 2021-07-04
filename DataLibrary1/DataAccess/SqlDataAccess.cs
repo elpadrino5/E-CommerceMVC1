@@ -26,19 +26,35 @@ namespace DataLibrary1.DataAccess
             }
         }
 
-        public static List<T> LoadCartData<T>(string sql, T data)
-        {
-            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
-            {
-                return cnn.Query<T>(sql, data).ToList();
-            }
-        }
-
         public static T LoadData<T>(string sql, T data)
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {
                     return cnn.Query<T>(sql, data).First();            
+            }
+        }
+
+        //public static List<T> LoadCartData<T>(string sql, T data)
+        //{
+        //    using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+        //    {
+        //        return cnn.Query<T>(sql, data).ToList();
+        //    }
+        //}
+
+        //public static List<T> LoadOrderData<T>(string sql, T data)
+        //{
+        //    using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+        //    {
+        //        return cnn.Query<T>(sql, data).ToList();
+        //    }
+        //}
+
+        public static List<T> LoadListData<T>(string sql, T data)
+        {
+            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+            {
+                return cnn.Query<T>(sql, data).ToList();
             }
         }
 

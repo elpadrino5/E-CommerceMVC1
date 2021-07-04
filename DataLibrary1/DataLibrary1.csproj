@@ -64,6 +64,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\OrderProcessor.cs" />
     <Compile Include="BusinessLogic\PaymentProcessor.cs" />
     <Compile Include="BusinessLogic\AddressProcessor.cs" />
     <Compile Include="BusinessLogic\CartProcessor.cs" />
@@ -72,8 +73,8 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Cart.cs" />
-    <Compile Include="Models\OrderItems.cs" />
-    <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\OrderItem.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

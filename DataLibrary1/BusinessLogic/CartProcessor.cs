@@ -38,7 +38,7 @@ namespace DataLibrary1.BusinessLogic
                         from dbo.CartItem
                         where Email = @Email;";
 
-            return SqlDataAccess.LoadCartData<CartItem>(sql, data);
+            return SqlDataAccess.LoadListData<CartItem>(sql, data);
         }
 
         public static int DeleteCartItem(int cartItemId)
