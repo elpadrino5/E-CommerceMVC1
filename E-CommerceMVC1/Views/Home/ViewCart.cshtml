@@ -9,80 +9,90 @@
 <br />
 <br />
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-default" id="checkout_btn">
-        @Html.ActionLink("Checkout", "CheckoutPage")
-    </button>
-}
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ImgUrl)
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.ProductId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
 
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-            total += item.Price;            
+<table class="table" id="cart-table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ImgUrl)*@
+            Image
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
 
-            <tr>
+        <th></th>
+    </tr>
 
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.ImgUrl)" width="300" height="250" />
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
+    @foreach (var item in Model)
+    {
+        total += item.Price;
 
-                <td>
-                    @Html.ActionLink("Details", "DetailsProduct", new { id = item.ProductId }) |
-                    <a href="#" data-toggle="collapse" data-target="#removeQuestion-@item.CartItemId">Remove</a>
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
+<tr>
 
-                        <div class="collapse" id="removeQuestion-@item.CartItemId">
-                            <p>Are you sure you want to delete this item?</p>
-                            <button type="submit" value="Yes" class="btn btn-default">
-                                @Html.ActionLink("Yes", "RemoveCartItem", new { id = item.CartItemId })
-                            </button>
-                            <input type="button" value="No" class="btn btn-default" data-toggle="collapse" data-target="#removeQuestion-@item.CartItemId" />
-                        </div>
-                    }
-                </td>
-            </tr>
-        }
+    <td>
+        @{var pid = item.ProductId; }
+        <img src="@Html.DisplayFor(modelItem => item.ImgUrl)" class="skateboard-image" onclick="GoToDetails(@pid)" width="300" height="250" />
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>*@
+    @*<td>
+            @Html.DisplayFor(modelItem => item.ProductId)
+        </td>*@
+    <td>
+        <p class="product-name" onclick="GoToDetails(@pid)">@Html.DisplayFor(modelItem => item.ProductName)</p>
+    </td>
+    <td>
+        $@Html.DisplayFor(modelItem => item.Price)
+    </td>
 
-    </table>
+    <td class="remove-cart-item">
+        @*@Html.ActionLink("Details", "DetailsProduct", new { id = item.ProductId }) |*@
+        <p id="remove-collapse" data-toggle="collapse" data-target="#removeQuestion-@item.CartItemId">Remove</p>
+
+        <div class="collapse" id="removeQuestion-@item.CartItemId">
+            <p>Are you sure you want to delete this item?</p>
+                
+                @Html.ActionLink("Yes", "RemoveCartItem", new { id = item.CartItemId }, new { id = "yes-remove-cart-item" })
+            <input id="no-remove-cart-item" type="button" value="No" data-toggle="collapse" data-target="#removeQuestion-@item.CartItemId" />
+        </div>
+    </td>
+</tr>
+    }
+    <tr>
+        <td>
+            <b>Total:</b>
+        </td>
+        <td>
+        </td>
+        <td>
+            $@total
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+
+<div id="cart-buttons-container">
+    @Html.ActionLink("Continue Shopping", "ViewProducts", "", new { id = "continue-shopping-button" })
+    @Html.ActionLink("Checkout", "CheckoutPage", "", new { id = "checkout_btn" })
     <div id="totaltop">
-        <p>Total: @total</p>
-    </div>
-    <div id="totalbottom">
-        <p>Total: @total</p>
-    </div>
+        <p><b>Total:</b> $@total</p>
+    </div>  
+</div>
+
+
+@*<div id="totalbottom">
+    <p><b>Total:</b> $@total</p>
+</div>*@
 

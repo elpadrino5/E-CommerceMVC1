@@ -11,6 +11,8 @@ using static DataLibrary1.BusinessLogic.AddressProcessor;
 using static DataLibrary1.BusinessLogic.PaymentProcessor;
 using static DataLibrary1.BusinessLogic.OrderProcessor;
 using DataLibrary1.Models;
+using System.Web.UI.WebControls;
+using System.Net.Mail;
 
 namespace E_CommerceMVC1.Controllers
 {
@@ -85,12 +87,14 @@ namespace E_CommerceMVC1.Controllers
             return View(products.Where(x => x.ProductId == id).FirstOrDefault());
         }
 
+        [Authorize]
         public ActionResult AddProduct()
         {
             ViewBag.Message = "Add Product";
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddProduct(Product_fe model)
@@ -104,12 +108,13 @@ namespace E_CommerceMVC1.Controllers
                     model.Description,
                     model.ImgUrl);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewProducts");
             }
 
             return View();
         }
 
+        [Authorize]
         public ActionResult EditProduct(int? id)
         {
             ViewBag.Message = $"Edit Product. this is the id: '{id}'.";
@@ -139,6 +144,7 @@ namespace E_CommerceMVC1.Controllers
             return View(products.Where(x => x.ProductId == id).FirstOrDefault());
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditProduct(Product_fe model)
@@ -152,11 +158,12 @@ namespace E_CommerceMVC1.Controllers
                     model.Description,
                     model.ImgUrl);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("ProductAdmin");
             }
             return View();
         }
 
+        [Authorize]
         public ActionResult EraseProduct(int? id)
         {
             ViewBag.Message = "Erase Product";
@@ -184,12 +191,13 @@ namespace E_CommerceMVC1.Controllers
             return View(products.Where(x => x.ProductId == id).FirstOrDefault());
         }
 
+        [Authorize]
         [HttpPost, ActionName("EraseProduct")]
         [ValidateAntiForgeryToken]
         public ActionResult EraseProductConfirm(int id)
         {
             int submittedItems = DeleteProduct(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("ProductAdmin");
         }
 
         /// <summary>
@@ -210,7 +218,7 @@ namespace E_CommerceMVC1.Controllers
                      p.Price,
                      p.ImgUrl);
 
-                return RedirectToAction("ViewProducts");
+                return RedirectToAction("ViewCart");
             }
             catch
             {
@@ -253,6 +261,7 @@ namespace E_CommerceMVC1.Controllers
         //}
 
         //    [HttpPost]
+        [Authorize]
         public ActionResult RemoveCartItem(int id)
         {
             ViewBag.Message = "Remove Cart Item";
@@ -267,42 +276,97 @@ namespace E_CommerceMVC1.Controllers
             return RedirectToAction("ViewCart");
         }
 
+        [Authorize]
         public ActionResult AddressForm()
         {
             ViewBag.Message = "Add Address";
             return View();
         }
 
+        [Authorize]
+        public ActionResult EditAddressForm(Order_fe model)
+        {
+            ViewBag.Message = "Edit Address";
+
+            Address_fe address = new Address_fe();
+
+            if (model != null)
+            {
+                address.FirstName = model.FirstName;
+                address.LastName = model.LastName;
+                address.Street = model.Street;
+                address.State = model.State;                
+                address.City = model.City;
+                address.Zip = model.Zip;                
+            }
+            return View(address);
+        }
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddressForm(Address_fe model)
         {
             //store email to be pass as id
             string email = User.Identity.Name;
+            //get address info
+            var address_data = LoadAddress(email);
 
             if (ModelState.IsValid)
             {
-                int submittedItems = CreateAddress(
-                email,
-                model.FirstName,
-                model.LastName,
-                model.Street,
-                model.City,
-                model.State,
-                model.Zip);
-
+                if (address_data == null)
+                {
+                    int submittedItems = CreateAddress(
+                    email,
+                    model.FirstName,
+                    model.LastName,
+                    model.Street,
+                    model.City,
+                    model.State,
+                    model.Zip);
+                }
+                else
+                {
+                    int submittedItems = UpdateAddress(
+                    email,
+                    model.FirstName,
+                    model.LastName,
+                    model.Street,
+                    model.City,
+                    model.State,
+                    model.Zip);
+                }
                 return RedirectToAction("CheckoutPage");
             }
 
             return View();
         }
 
+        [Authorize]
         public ActionResult PaymentForm()
         {
             ViewBag.Message = "Add Address";
             return View();
         }
 
+        [Authorize]
+        public ActionResult EditPaymentForm(Order_fe model)
+        {
+            ViewBag.Message = "Edit Payment";
+
+            Payment_fe payment = new Payment_fe();
+
+            if (model != null)
+            {
+                payment.NameOnCard = model.NameOnCard;
+                payment.CardNumber = model.CardNumber;
+                payment.CVV = model.CVV;
+                payment.Expiration = model.Expiration;
+            }
+            return View(payment);
+        }
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult PaymentForm(Payment_fe model)
@@ -310,22 +374,38 @@ namespace E_CommerceMVC1.Controllers
             //store email to be pass as id
             string email = User.Identity.Name;
 
+            //get payment info
+            var payment_data = LoadPayment(email);
+
             if (ModelState.IsValid)
             {
-                int submittedItems = CreatePayment(
-                email,
-                model.NameOnCard,
-                model.CardNumber,
-                model.Expiration,
-                model.CVV
-                );
-
+                if (payment_data == null)
+                {
+                    int submittedItems = CreatePayment(
+                    email,
+                    model.NameOnCard,
+                    model.CardNumber,
+                    model.Expiration,
+                    model.CVV
+                    );
+                }
+                else 
+                {
+                    int submittedItems = UpdatePayment(
+                    email,
+                    model.NameOnCard,
+                    model.CardNumber,
+                    model.Expiration,
+                    model.CVV
+                    );
+                }
                 return RedirectToAction("CheckoutPage");
             }
 
             return View();
         }
 
+        [Authorize]
         public ActionResult CheckoutPage()
         {
             ViewBag.Message = "Order";
@@ -390,6 +470,7 @@ namespace E_CommerceMVC1.Controllers
             return View(order);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CheckoutPage(Order_fe order)
@@ -540,6 +621,7 @@ namespace E_CommerceMVC1.Controllers
             return View(orderPost);
         }
 
+        [Authorize]
         public ActionResult MyOrderPage()
         {
             //store email to be pass as id
@@ -563,6 +645,7 @@ namespace E_CommerceMVC1.Controllers
             return View(orders);
         }
 
+        [Authorize]
         public ActionResult AllOrdersPage()
         {
             //get all existing orders
@@ -584,9 +667,37 @@ namespace E_CommerceMVC1.Controllers
             return View(orders);
         }
 
+        [Authorize]
         public ActionResult AdminPage()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult ProductAdmin()
+        {
+            ViewBag.Message = "All products";
+
+            //get products from database
+            var data = LoadProduct();
+
+            //create list with front end class
+            List<Product_fe> products = new List<Product_fe>();
+
+            //iterate over data and add product to list
+            foreach (var row in data)
+            {
+                products.Add(new Product_fe
+                {
+                    ProductId = row.ProductId,
+                    Name = row.Name,
+                    Price = row.Price,
+                    Description = row.Description,
+                    ImgUrl = row.ImgUrl,
+                });
+            }
+
+            return View(products);
         }
     }
 }

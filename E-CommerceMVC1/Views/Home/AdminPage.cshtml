@@ -3,6 +3,10 @@
     ViewBag.Title = "AdminPage";
 }
 
-<h2>AdminPage</h2>
+<h2>Admin Console</h2><br />
 
-<button type="button" id="orders">@Html.ActionLink("View All Orders", "AllOrdersPage", "Home")</button>
+<div id="admin-buttons-container">
+    @Html.ActionLink("View All Orders", "AllOrdersPage", "Home", new { id = "admin-orders" })
+    @Html.ActionLink("Add a Product", "AddProduct", "Home", new { id = "admin-create" })
+    @Html.ActionLink("Edit or Delete a Product", "ProductAdmin", "Home", new { id = "admin-delete" })
+</div>

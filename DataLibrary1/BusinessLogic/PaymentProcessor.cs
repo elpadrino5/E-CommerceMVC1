@@ -47,5 +47,23 @@ namespace DataLibrary1.BusinessLogic
                 return null;
             }            
         }
+
+        public static int UpdatePayment(string email, string nameOnCard, long cardNumber, int expiration, int cvv)
+        {
+            Payment data = new Payment
+            {
+                Email = email,
+                NameOnCard = nameOnCard,
+                CardNumber = cardNumber,
+                Expiration = expiration,
+                CVV = cvv
+            };
+
+            string sql = @"UPDATE dbo.Payment 
+                           SET NameOnCard = @NameOnCard, CardNumber = @CardNumber , Expiration = @Expiration, CVV = @CVV
+                           WHERE Email = @Email;";
+
+            return SqlDataAccess.SaveData(sql, data);
+        }
     }
 }

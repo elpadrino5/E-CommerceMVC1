@@ -1,0 +1,6 @@
+Product ID: 10002
+Name: Real Tropic Ovals
+Price: 109.95
+Description: Shape: TwinPopsicle, Construction: Traditional 7-Ply Maple,
+Wheels: Real 53mm, Width: 7.75, Length: 31.5, Wheelbase: 14.25
+Image URL: /images/real-tropic-ovals.jpg

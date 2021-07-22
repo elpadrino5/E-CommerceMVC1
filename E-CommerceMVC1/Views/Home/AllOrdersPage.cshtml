@@ -4,11 +4,9 @@
     ViewBag.Title = "AllOrdersPage";
 }
 
-<h2>AllOrdersPage</h2>
+<h2>All Orders</h2>
+<br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -27,9 +25,10 @@
     </tr>
 
 @foreach (var item in Model) {
+    var orderId = @Html.ValueFor(modelItem => item.OrderId).ToString();
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.OrderId)
+            @Html.ActionLink(orderId, "ConfirmationPage", new { id = item.OrderId })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
@@ -38,14 +37,19 @@
             @Html.DisplayFor(modelItem => item.ItemQty)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Total)
+            $@Html.DisplayFor(modelItem => item.Total)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
         </td>
     </tr>
 }
 
 </table>
+
+<br />
+<div>
+    @Html.ActionLink("Go Back", "AdminPage")
+</div>

@@ -49,5 +49,25 @@ namespace DataLibrary1.BusinessLogic
                 return null;
             }            
         }
+
+        public static int UpdateAddress(string email, string firstName, string lastName, string street, string city, string state, int zip)
+        {
+            Address data = new Address
+            {
+                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
+                Street = street,
+                City = city,
+                State = state,
+                Zip = zip
+            };
+
+            string sql = @"UPDATE dbo.Address 
+                           SET FirstName = @FirstName, LastName = @LastName, Street = @Street , City = @City, State = @State, Zip = @Zip
+                           WHERE Email = @Email;";
+
+            return SqlDataAccess.SaveData(sql, data);
+        }
     }
 }

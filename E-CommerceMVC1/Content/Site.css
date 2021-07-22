@@ -1,4 +1,195 @@
-﻿body {
+﻿/*navigation bar////////////////////////////////////////////////////////////////////////////////////////*/
+
+.navbar{
+    background-image: url("/images/wood9.jpg");
+    border: 0px solid black;
+}
+
+#app-name {
+    background-image: url("/images/chrome1.jpg");
+    background-color: silver;
+    color: rgb(53,53,53);
+    font-size: large;
+    font-weight: bold;
+}
+#app-name:hover {
+    color: white;
+}
+
+#page-link1, #page-link2, #page-link3, #page-link4 {
+    color: black;
+    font-size: medium;
+}
+
+#page-link1:hover, #page-link2:hover, #page-link3:hover, #page-link4:hover {
+    color: white;
+}
+
+#welcome-message{
+    color: rgb(81, 81, 81);
+}
+#welcome-message:hover{
+    color: white;
+}
+
+#logoff {
+   color: rgb(81, 81, 81);
+}
+#logoff:hover  {
+    color: white;
+}
+
+#registerLink {
+    color: black;
+}
+#registerLink:hover {
+    color: white;
+}
+
+#loginLink {
+    color: black;
+}
+#loginLink:hover {
+    color: white;
+}
+
+/*ViewProduct////////////////////////////////////////////////////////////////////////////////////////*/
+
+#products-table{
+    margin-top:20px;
+    margin-bottom:60px;
+    border: 0px solid black;
+}
+
+.products-row {
+   
+    border: 0px solid black;
+}
+
+.products-data {
+    padding: 30px;
+    border: 0px solid black;
+    
+}
+
+.products-data:hover {
+    border: 1px solid lightgray;
+    box-shadow: 2px 2px 4px 1px gray;
+}
+
+.skateboard-image{
+    cursor: pointer;
+}
+
+#view-name {
+    font-weight: bold;
+}
+
+.product-name{
+    cursor: pointer;
+    
+}
+.product-name:hover {
+    color: orange;
+}
+
+#product-price {
+    font-weight: bold;
+}
+
+#addtocart-paragraph {
+    margin-top: 25px;
+}
+
+#addtocart-link{
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: burlywood;
+    color:black;
+}
+
+#addtocart-link:hover{
+    text-decoration: none;
+    background-color: rgb(189, 151, 101);
+}
+
+/*Product Details///////////////////////////////////////////////////////////////////////////////*/
+.products-description{
+    line-height: 1;
+}
+
+#description{
+    padding-top: 3px;
+}
+
+.details-list {
+    margin-bottom: 20px;
+}
+
+#details-image {
+    margin-left: 70px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    /*    margin: 100px, 0px, 30px, 70px;*/
+}
+
+#image {
+    margin: 0px;
+    padding: 0px 0px;
+    border: 1px solid lightgray;
+    box-shadow: 2px 2px 4px 1px gray;
+}
+#image:hover {
+    height: 600px;
+    width: 700px;
+}
+
+#addtocart-link-details {
+    font-weight: bolder;
+    text-align: center;
+    width: 200px;
+    display: block;
+    position: relative;
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 30px;
+    border: 1px inset black;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: rgb(255, 222, 180);
+    color: black;
+}
+
+#addtocart-link-details:hover {
+    text-decoration: none;
+    background-color: rgb(237, 201, 158);
+}
+
+#backtolist-link {
+    font-weight: bolder;
+    text-align: center;
+    width: 200px;
+    display: block;
+    position: relative;
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    border: 1px inset black;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: lightgray;
+    color: black;
+}
+
+#backtolist-link:hover {
+    text-decoration: none;
+    background-color: rgba(197, 197, 197, 1);
+}
+
+/*body////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -22,18 +213,113 @@ select,
 textarea {
     max-width: 280px;
 }
+/*Cart Page////////////////////////////////////////////////////////////////////////////*/
 
-#totaltop{
-    position:absolute;
-    top: 110px;
-    left: 1000px;
+#remove-collapse{
+    border: 0px solid black;
+    height: 40px;
+    color: rgb(0, 143, 255);
+}
+#remove-collapse:hover {
+    color: rgb(0, 143, 255);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#yes-remove-cart-item {
+    border-radius: 6px;
+    background-color: lightgray;
+    color: black;
+    padding: 10px 15px;
+}
+#yes-remove-cart-item:hover {
+    text-decoration: none;
+    background-color: gray;
+}
+
+#no-remove-cart-item {
+    border-radius: 6px;
+    background-color: lightgray;
+    color: black;
+    width: 52px;
+    height: 36px;
+    border: 0px solid black;
+}
+
+#no-remove-cart-item:hover {
+    text-decoration: none;
+    background-color: gray;
+}
+
+.remove-cart-item {
+    width: 23%;
+    text-align: center;
+}
+
+#cart-table {
+    width: 700px;
+}
+
+#totaltop {
+    font-size:larger;
+    margin-top: 25px;
+    margin-left: 40px;
+    margin-bottom: 25px;
+}
+
+#cart-buttons-container {
+    background-image: url("/images/wood9.jpg");
+    background-color: burlywood;
+    position: fixed;
+    top: 20%;
+    left: 70%;
+    float: right;
+    border: 0px solid black;
+    border-radius: 6px;
+    display: block;
+    width: auto;
+    height: auto;
 }
 
 #checkout_btn {
-    position: fixed;
-    top: 110px;
-    left: 1100px;
+    font-weight: bolder;
+    text-align: center;
+    width: 200px;
+    display: block;
+    position: relative;
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    border: 1px inset black;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: rgb(255, 222, 180);
+    color: black;
 }
+#checkout_btn:hover {
+    background-color: rgb(237, 201, 158);
+    text-decoration: none;
+}
+
+#continue-shopping-button {
+    font-weight:bolder;
+    text-align: center;
+    width: 200px;
+    display: block;
+    position: relative;
+    margin-top: 30px;
+    margin-left: 40px;
+    border: 1px inset black;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: lightgray;
+    color: black;
+}
+#continue-shopping-button:hover {
+    background-color: rgba(197, 197, 197, 1);
+    text-decoration: none;
+}
+/*checkoutpage*/
 
 #checkout_table{
 
@@ -56,4 +342,118 @@ textarea {
 
 #items_container{
     width:40%
+}
+
+/*Checkout Page/////////////////////////////////////////////////////////*/
+.title-container {
+    display: block;
+    margin: 20px 0px;
+    border: 0px solid black;
+}
+
+.title-checkout{
+    display: inline;
+}
+
+#edit-address{
+    margin-left: 178px;
+    display: inline;
+}
+
+#edit-payment{
+    margin-left: 193px;
+    display: inline;
+}
+
+#confirm-button {
+    margin-left: 3px;
+    margin-bottom: 40px;
+    width: 455px;
+    height: 50px;
+    background-color: burlywood;
+    border: 0px solid black;
+    border-radius: 6px;
+    font-weight: bold;
+}
+#confirm-button:hover {
+    background-color: rgb(189, 151, 101);
+}
+
+#footer{
+    margin-top: 5%;
+    border: 0px solid black;
+}
+
+/*admin page*/
+#admin-buttons-container {
+    background-image: url("/images/wood9.jpg");
+    border: 0px solid lightgray;
+    box-shadow: 2px 2px 4px 1px gray;
+    border-radius: 6px;
+    width: 400px;
+    height: 200px;
+    align-items: center;
+    margin-left: 30%;
+    padding-top: 1px;
+}
+
+#admin-orders {
+    background-color: lightgray;
+    color: black;
+    font-weight: bold;
+    border: 1px inset black;
+    border-radius: 6px;
+    padding-top: 10px;
+    padding-left: 100px;
+    margin-left: 13%;
+    margin-top: 20px;
+    width: 300px;
+    height: 40px;
+    display: block;
+}
+#admin-orders:hover {
+    text-decoration: none;
+    background-color: rgba(197, 197, 197, 1);
+}
+
+#admin-create {
+    background-color: lightgray;
+    color: black;
+    font-weight: bold;
+    border: 1px inset black;
+    border-radius: 6px;
+    padding: 10px;
+    padding-left: 100px;
+    margin-left: 13%;
+    margin-top: 20px;
+    width: 300px;
+    height: 40px;
+    display: block;
+}
+#admin-create:hover {
+    text-decoration: none;
+    background-color: rgba(197, 197, 197, 1);
+}
+
+#admin-delete {
+    background-color: lightgray;
+    color: black;
+    font-weight: bold;
+    border: 1px inset black;
+    border-radius: 6px;
+    padding-top:10px;
+    padding-left: 65px;
+    align-content: center;
+    align-items: center;
+
+    margin-left: 13%;
+    margin-top: 20px;
+    width: 300px;
+    height: 40px;
+    display: block;
+    align-self: center;
+}
+#admin-delete:hover {
+    text-decoration: none;
+    background-color: rgba(197, 197, 197, 1);
 }

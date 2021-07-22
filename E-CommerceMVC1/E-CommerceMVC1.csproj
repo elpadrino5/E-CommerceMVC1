@@ -212,6 +212,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -262,6 +263,9 @@
     <Content Include="Views\Home\MyOrderPage.cshtml" />
     <Content Include="Views\Home\AdminPage.cshtml" />
     <Content Include="Views\Home\AllOrdersPage.cshtml" />
+    <Content Include="Views\Home\ProductAdmin.cshtml" />
+    <Content Include="Views\Home\EditAddressForm.cshtml" />
+    <Content Include="Views\Home\EditPaymentForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

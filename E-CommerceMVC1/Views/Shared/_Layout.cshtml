@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/script.js")
 
 </head>
 <body>
@@ -17,29 +18,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "ViewProducts", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Skater Pro", "ViewProducts", "Home", new { area = "" }, new { @class = "navbar-brand", @id = "app-name" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "ViewProducts", "Home")</li>
-                    <li>@Html.ActionLink("Post", "AddProduct", "Home")</li>
-                    <li>@Html.ActionLink("My Cart", "ViewCart", "Home")</li>
-                    <li>@Html.ActionLink("My Orders", "MyOrderPage", "Home")</li>
-                    <li>@Html.ActionLink("Admin", "AdminPage", "Home")</li>
+                <ul class="nav navbar-nav" id="page-links">
+                    <li>@Html.ActionLink("Shop", "ViewProducts", "Home", new { area = "" }, new { @id = "page-link1" })</li>
+                    <li>@Html.ActionLink("My Cart", "ViewCart", "Home", new { area = "" }, new { @id = "page-link2" })</li>
+                    <li>@Html.ActionLink("My Orders", "MyOrderPage", "Home", new { area = "" }, new { @id = "page-link3" })</li>
+                    <li>@Html.ActionLink("Admin", "AdminPage", "Home", new { area = "" }, new { @id = "page-link4" })</li>
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Shop", "ViewProducts", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+        <li>@Html.ActionLink("Post", "AddProduct", "Home")</li>
+        <li>@Html.ActionLink("Shop", "ViewProducts", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" >
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        <div id="footer">
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

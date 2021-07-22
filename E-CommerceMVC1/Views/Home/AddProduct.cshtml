@@ -4,15 +4,13 @@
     ViewBag.Title = "Add Product";
 }
 
-
-
+<h2>Add Product </h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Sell your product </h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -57,7 +55,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Go Back", "AdminPage")
 </div>
 
 @section Scripts {
