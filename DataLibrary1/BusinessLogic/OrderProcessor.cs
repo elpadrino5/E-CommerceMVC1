@@ -10,18 +10,19 @@ namespace DataLibrary1.BusinessLogic
 {
     public class OrderProcessor
     {
-        public static int CreateOrder(int orderId, string email, int itemQty, double total)
+        public static int CreateOrder(int orderId, string email, string date, int itemQty, double total)
         {
             Order data = new Order
             {
                 OrderId = orderId,
                 Email = email,
+                Date = date,
                 ItemQty = itemQty,
                 Total = total
             };
 
-            string sql = @"insert into dbo.Orders (OrderId, Email, ItemQty, Total)
-                        values (@OrderId, @Email, @ItemQty, @Total);";
+            string sql = @"insert into dbo.Orders (OrderId, Email, Date, ItemQty, Total)
+                        values (@OrderId, @Email, @Date, @ItemQty, @Total);";
 
             return SqlDataAccess.SaveData(sql, data);
         }
@@ -45,7 +46,8 @@ namespace DataLibrary1.BusinessLogic
 
         public static List<Order> LoadOrder()
         {
-            string sql = @"SELECT * FROM Orders;";
+            string sql = @"SELECT * FROM Orders
+                            ORDER BY Date DESC;";
 
             return SqlDataAccess.LoadData<Order>(sql);
         }
@@ -58,7 +60,8 @@ namespace DataLibrary1.BusinessLogic
             };
 
             string sql = @"SELECT * FROM Orders
-                           WHERE Email= @Email;";
+                           WHERE Email= @Email
+                           ORDER BY Date DESC;";
 
             return SqlDataAccess.LoadListData<Order>(sql, data);
         }

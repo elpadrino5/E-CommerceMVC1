@@ -10,6 +10,7 @@ namespace E_CommerceMVC1.Models
         //Items List
         public int OrderId { get; set; }
         public string Email { get; set; }
+        public string Date { get; set; }
         public List<OrderItem_fe> ListOrderItems { get; set; }
         public int ItemQty { get; set; }
         public double Total { get; set; }

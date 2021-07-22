@@ -524,9 +524,14 @@ namespace E_CommerceMVC1.Controllers
 
             if (ModelState.IsValid)
             {
+                DateTime rn = DateTime.Now;
+                var date = rn.ToString("MMMM dd, yyyy hh:mm tt (ddd)");
+                Console.WriteLine(date);
+
                 submittedItems = CreateOrder(
                 genId,
                 email,
+                date,
                 order.ItemQty,
                 order.Total
                 );
@@ -613,6 +618,7 @@ namespace E_CommerceMVC1.Controllers
             {
                 orderPost.OrderId = orderData.OrderId;
                 orderPost.Email = orderData.Email;
+                orderPost.Date = orderData.Date;
                 orderPost.ListOrderItems = orderItems;
                 orderPost.ItemQty = orderData.ItemQty;
                 orderPost.Total = orderData.Total;
@@ -637,6 +643,7 @@ namespace E_CommerceMVC1.Controllers
                 {
                     OrderId = row.OrderId,
                     Email = row.Email,
+                    Date = row.Date,
                     ItemQty = row.ItemQty,
                     Total = row.Total,
                 });
@@ -659,6 +666,7 @@ namespace E_CommerceMVC1.Controllers
                 {
                     OrderId = row.OrderId,
                     Email = row.Email,
+                    Date = row.Date,
                     ItemQty = row.ItemQty,
                     Total = row.Total,
                 });

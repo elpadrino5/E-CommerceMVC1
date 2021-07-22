@@ -14,6 +14,9 @@
             Order Number
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
             @*@Html.DisplayNameFor(model => model.ItemQty)*@
             Items Quantity
         </th>
@@ -29,6 +32,9 @@
         <td>
             @Html.ActionLink(orderId, "ConfirmationPage", new { id=item.OrderId })
             @*@Html.DisplayFor(modelItem => item.OrderId)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ItemQty)
